@@ -1,0 +1,21 @@
+---
+- name: Install Git and MySQL
+  hosts: ubuntu_server
+  become: yes
+  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+    - name: Install MySQL Server
+      apt:
+        name: mysql-server
+        state: present
+    - name: Start and enable MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: yes
