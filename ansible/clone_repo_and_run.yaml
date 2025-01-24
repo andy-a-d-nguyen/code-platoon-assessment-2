@@ -1,0 +1,14 @@
+---
+- name: Clone todolist-flask and run
+  hosts: all
+  tasks:
+    - name: Clone the repo
+      git:
+        repo: "https://github.com/andy-a-d-nguyen/todolist-flask.git"
+        dest: /home/ubuntu/todolist-flask/
+    - name: cd into repo
+      command: /bin/bash -c "cd /home/ubuntu/todolist-flask/"
+    - name: Create virtual environment
+      command: /bin/bash -c "python3 -m venv .venv && . .venv/bin/activate"
+    - name: Install dependencies and run app
+      command: /bin/bash -c "pip install -r requirements.txt && python3 todo.py"
