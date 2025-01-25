@@ -36,12 +36,3 @@
       apt:
         name: git
         state: present
-    - name: Install MySQL Server
-      apt:
-        name: mysql-server
-        state: present
-    - name: Start and enable MySQL service
-      service:
-        name: mysql
-        state: started
-        enabled: yes

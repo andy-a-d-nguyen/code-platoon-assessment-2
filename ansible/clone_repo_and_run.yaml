@@ -1,6 +1,7 @@
 ---
 - name: Clone todolist-flask and run
   hosts: all
+  become: yes
   tasks:
     - name: Check if todolist-flask exists
       stat:
@@ -15,3 +16,24 @@
       git:
         repo: "https://github.com/andy-a-d-nguyen/todolist-flask.git"
         dest: /home/ubuntu/todolist-flask/
+    - name: Check if Docker is installed
+      command: which docker
+      register: docker_check
+      ignore_errors: yes
+    - name: Fail if Docker is not installed
+      fail:
+        msg: "Docker is not installed on the system."
+      when: docker_check.rc != 0
+    - name: Build todolist-flask
+      command:
+        chdir: /home/ubuntu/todolist-flask
+        cmd: docker build -t todolist-flask:latest .
+      when: docker_check.rc == 0
+    - name: Run todolist-flask
+      command: |
+        docker run -d \
+        -e MYSQL_DATABASE_HOST=terraform-20250125110007360500000001.cvyw6igek2bp.us-east-1.rds.amazonaws.com:3306 
+        -e MYSQL_DATABASE_USER=andy \ 
+        -e MYSQL_DATABASE_PASSWORD=andy \
+        -p 8080:80 \
+        todolist-flask:latest
