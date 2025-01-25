@@ -1,11 +1,11 @@
 ---
 - name: Update and Upgrade Ubuntu Dependencies
   hosts: ubuntu_server
-  become: yes
+  become: true
   tasks:
     - name: Update Apt Package Index
       apt:
-        update_cache: yes
+        update_cache: true
     - name: Upgrade All Packages
       apt:
         upgrade: dist

@@ -27,6 +27,13 @@ resource "aws_security_group" "ubuntu_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -60,10 +67,11 @@ resource "aws_db_instance" "default" {
   db_name              = "todo_db"
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
+  publicly_accessible  = true
 
-  tags = {
-    Name = "Andy MySQL"
-  }
+  vpc_security_group_ids = [
+    aws_security_group.ubuntu_security_group.id
+  ]
 }
 
 output "instance_ip" {

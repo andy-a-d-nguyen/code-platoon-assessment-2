@@ -1,0 +1,7 @@
+---
+- name: Update Ubuntu
+  import_playbook: update_ubuntu.yaml
+- name: Install Dependencies
+  import_playbook: install_dependencies.yaml
+- name: Clone todolist-flask and Run
+  import_playbook: clone_repo_and_run.yaml
