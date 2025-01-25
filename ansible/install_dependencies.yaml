@@ -1,0 +1,47 @@
+---
+- name: Install Dependencies
+  hosts: ubuntu_server
+  become: yes
+  tasks:
+    - name: Install Docker dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+    - name: Ensure Docker is started
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+    - name: Install MySQL Server
+      apt:
+        name: mysql-server
+        state: present
+    - name: Start and enable MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: yes
