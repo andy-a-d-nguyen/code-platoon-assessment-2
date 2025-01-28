@@ -23,9 +23,9 @@
     - name: Run todolist-flask
       command: |
         docker run -d \
-        -e SERVER_URL=54.226.37.219 \
-        -e MYSQL_DATABASE_HOST=terraform-20250126013926409700000001.cvyw6igek2bp.us-east-1.rds.amazonaws.com \
+        -e SERVER_URL=54.91.98.41 \
+        -e MYSQL_DATABASE_HOST=terraform-20250128014412756200000001.cvyw6igek2bp.us-east-1.rds.amazonaws.com \
         -e MYSQL_DATABASE_USER=andy \
         -e MYSQL_DATABASE_PASSWORD=andyandy \
-        -p 80:80 \
+        -p 5000:5000 \
         todolist-flask:latest
