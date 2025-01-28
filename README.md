@@ -13,14 +13,8 @@ Note the IP address of the server and the hostname of the MySQL RDS instance at 
 
 ## Setting Up Ansible
 
-`cd` into the `ansible` directory
-
-Open `inventory.ini` and replace the IP address with the IP address of the server
-
-Open `clone_repo_and_run.yaml` and replace the IP address and the hostname of the MySQL RDS instance
-
-Run
+`cd` into the `ansible` directory and run
 
 ```bash
-ansible-playbook -i inventory.ini playbook.yaml
+ansible-playbook -i inventory.ini playbook.yaml --extra-vars "ec2_address=<your_ec2_address> mysql_host=<your_mysql_host>"
 ```
